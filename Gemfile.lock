@@ -1,0 +1,16 @@
+GEM
+  remote: https://rubygems.org/
+  specs:
+    ractor-tvar (0.1.0)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  ractor-tvar
+
+RUBY VERSION
+   ruby 3.0.0p-1
+
+BUNDLED WITH
+   2.2.0.rc.2
