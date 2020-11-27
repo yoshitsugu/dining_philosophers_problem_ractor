@@ -7,7 +7,7 @@ NUM_OF_PHILOSOPHERS = 5
 
 class Philosopher
   def initialize(name, left, right)
-    @name = name
+    @name = name.freeze
     @left = left
     @right = right
   end
@@ -23,18 +23,14 @@ class Philosopher
   end
 
   def take_forks
-    loop do
-      Ractor.atomically do
-        @left.value = @name.freeze if @left.value == nil
-      end
-      break if @left.value == @name
+    Ractor.atomically do
+      raise Ractor::RetryTransaction unless @left.value.nil?
+      @left.value = @name
     end
-    
-    loop do
-      Ractor.atomically do
-        @right.value = @name.freeze if @right.value == nil
-      end
-      break if @right.value == @name
+
+    Ractor.atomically do
+      raise Ractor::RetryTransaction unless @right.value.nil?
+      @right.value = @name
     end
   end
 
