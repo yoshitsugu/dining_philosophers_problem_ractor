@@ -26,9 +26,6 @@ class Philosopher
     Ractor.atomically do
       raise Ractor::RetryTransaction unless @left.value.nil?
       @left.value = @name
-    end
-
-    Ractor.atomically do
       raise Ractor::RetryTransaction unless @right.value.nil?
       @right.value = @name
     end
