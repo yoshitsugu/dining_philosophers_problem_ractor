@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require 'securerandom'
-require 'ractor/tvar'
+require 'ractor/tmvar'
 
 NUM_OF_PHILOSOPHERS = 5
 
@@ -24,10 +24,8 @@ class Philosopher
 
   def take_forks
     Ractor.atomically do
-      raise Ractor::RetryTransaction unless @left.value.nil?
-      @left.value = @name
-      raise Ractor::RetryTransaction unless @right.value.nil?
-      @right.value = @name
+      @left.value
+      @right.value
     end
   end
 
@@ -49,9 +47,8 @@ class Philosopher
 end
 
 forks = NUM_OF_PHILOSOPHERS.times.map do
-  Ractor::TVar.new
+  Ractor::TMVar.new
 end
-
 
 rs = NUM_OF_PHILOSOPHERS.times.map do |i|
   Ractor.new("philosopher #{i + 1}", forks[i], forks[(i + 1) % NUM_OF_PHILOSOPHERS]) do |n, l, r|
