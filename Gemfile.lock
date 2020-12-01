@@ -1,7 +1,7 @@
 GEM
   remote: https://rubygems.org/
   specs:
-    ractor-tmvar (0.1.2)
+    ractor-tmvar (0.2.0)
       ractor-tvar (~> 0.3.0)
     ractor-tvar (0.3.0)
 
@@ -9,7 +9,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  ractor-tmvar (~> 0.1.2)
+  ractor-tmvar (~> 0.2.0)
 
 RUBY VERSION
    ruby 3.0.0p-1

@@ -24,15 +24,15 @@ class Philosopher
 
   def take_forks
     Ractor.atomically do
-      @left.value
-      @right.value
+      @left.take
+      @right.take
     end
   end
 
   def put_forks
     Ractor.atomically do
-      @right.value = nil
-      @left.value = nil
+      @right.put(nil)
+      @left.put(nil)
     end
   end
 
